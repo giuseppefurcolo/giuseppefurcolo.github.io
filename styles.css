@@ -201,6 +201,11 @@ main { padding: 0 var(--gutter); }
 .strip__item > picture, .strip__item > video { height: 100%; }
 .strip__media { height: 100%; width: auto; max-width: none; }
 
+/* a wide, short banner (Surfside stats): natural size, centered, not stretched to strip height */
+.strip__item--banner { height: var(--strip-h); display: flex; align-items: center; }
+.strip__item--banner > picture { height: auto; }
+.strip__item--banner .strip__media { width: min(924px, 80vw); height: auto; }
+
 /* two images in one column (Amplify) */
 .strip__item--stack { display: flex; flex-direction: column; gap: var(--strip-gap); }
 .strip__item--stack > picture { height: calc((100% - var(--strip-gap)) / 2); }
