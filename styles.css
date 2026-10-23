@@ -270,7 +270,7 @@ main { padding: 0 var(--gutter); }
   object-fit: cover; object-position: 50% 0;
 }
 @media (prefers-reduced-motion: no-preference) {
-  .strip__item--layered > picture + picture img { animation: layered-pan 14s ease-in-out infinite alternate; }
+  .strip__item--layered > picture + picture img { animation: layered-pan 10s ease-in-out infinite alternate; }
 }
 @keyframes layered-pan {
   0%, 20% { object-position: 50% 0; }
