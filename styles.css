@@ -48,7 +48,8 @@
   --radius-panel: 13px;
   --strip-h: clamp(232px, 44.5vw, 640px); /* item height = panel height (no inner padding) */
   --strip-pad: 0px;                       /* media sits flush with the panel edges */
-  --strip-gap: clamp(10px, 1.1vw, 16px);
+  --strip-gap: 0px;                       /* items sit edge to edge */
+  --shots-gap: clamp(10px, 1.1vw, 16px);  /* spacing inside the LaunchScience composite */
   --tl-pad-sm: clamp(4px, 1.7vw, 24px);
   --tl-pad: clamp(12px, 1.7vw, 24px);
   --role-pad-top: clamp(32px, 3.3vw, 48px);
@@ -79,7 +80,7 @@
     --fs-body: round(clamp(1rem, 0.9rem + 0.45vw, 1.25rem), 1px);
     --gutter: round(clamp(16px, 2.8vw, 40px), 1px);
     --strip-h: round(clamp(232px, 44.5vw, 640px), 1px);
-    --strip-gap: round(clamp(10px, 1.1vw, 16px), 1px);
+    --shots-gap: round(clamp(10px, 1.1vw, 16px), 1px);
     --tl-pad-sm: round(clamp(4px, 1.7vw, 24px), 1px);
     --tl-pad: round(clamp(12px, 1.7vw, 24px), 1px);
     --role-pad-top: round(clamp(32px, 3.3vw, 48px), 1px);
@@ -274,7 +275,7 @@ main { padding: 0 var(--gutter); }
 .strip__item--scene:first-child > .embed:first-child { border-radius: var(--radius-panel) 0 0 var(--radius-panel); }
 .scene__shots {
   position: absolute; inset: 0; display: flex; align-items: center;
-  gap: var(--strip-gap); padding: 0 var(--scene-pad); pointer-events: none;
+  gap: var(--shots-gap); padding: 0 var(--scene-pad); pointer-events: none;
 }
 .scene__shots picture { height: 68%; pointer-events: auto; }
 .scene__shots picture:nth-child(2) { height: 58%; }
