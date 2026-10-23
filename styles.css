@@ -158,9 +158,9 @@ main { padding: 0 var(--gutter); }
 /* date range as a pill in the role's timeline color */
 .role__dates {
   justify-self: start; display: inline-flex; gap: .4em; align-items: center;
-  padding: .45em .95em; border-radius: 999px; margin-bottom: 10px;
+  padding: .3em .75em; border-radius: 999px; margin-bottom: 10px;
   background: var(--role-color); color: var(--c-ink);
-  font-size: var(--fs-dates); font-weight: 700; line-height: 1;
+  font-size: var(--fs-dates); font-weight: 400; line-height: 1;
 }
 .role__arrow { color: inherit; }
 .role__company {
