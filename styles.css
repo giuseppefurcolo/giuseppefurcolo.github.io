@@ -158,7 +158,7 @@ main { padding: 0 var(--gutter); }
 /* date range as a pill in the role's timeline color */
 .role__dates {
   justify-self: start; display: inline-flex; gap: .4em; align-items: center;
-  padding: .4em .75em; border-radius: 999px; margin-bottom: 8px;
+  padding: .46em .75em .34em; border-radius: 999px; margin-bottom: 8px;   /* optical: caps centered, not the descender box */
   background: var(--role-color); color: var(--c-ink);
   font-size: var(--fs-dates); font-weight: 600; line-height: 1;   /* same weight as the timeline years */
 }
