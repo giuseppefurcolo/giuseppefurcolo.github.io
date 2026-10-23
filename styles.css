@@ -259,7 +259,7 @@ main { padding: 0 var(--gutter); }
 /* Beeswax 02, as on the live site: the analytics card (second image) sits in the
    campaign page's empty content area (first image) and pans from Forecast down to
    Bid Decision Flow and back. Window position measured on the Framer site. */
-.strip__item--layered { position: relative; border: 8px solid #000; }
+.strip__item--layered { position: relative; border: 8px solid #000; border-radius: 8px; overflow: hidden; }
 .strip__item--layered > picture:first-child { height: 100%; }
 .strip__item--layered > picture + picture {
   position: absolute; top: 19.5%; right: 1.6%; bottom: 0; left: 13.2%;
