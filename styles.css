@@ -36,7 +36,7 @@
   --fs-title: clamp(1.25rem, 1rem + 1.1vw, 1.75rem);       /* 28px at 1440 */
   --fs-tagline: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);  /* 14px */
   --fs-year: clamp(0.6875rem, 0.55rem + 0.4vw, 1rem);      /* 16px */
-  --fs-dates: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);    /* 24px */
+  --fs-dates: clamp(0.8125rem, 0.75rem + 0.2vw, 0.875rem); /* 14px badge */
   --fs-company: clamp(2.25rem, 1.6rem + 2.2vw, 3rem);      /* 48px */
   --fs-exit: clamp(1rem, 0.9rem + 0.4vw, 1.25rem);         /* 20px */
   --fs-role: clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem);     /* 24px */
@@ -155,11 +155,15 @@ main { padding: 0 var(--gutter); }
   grid-column: 2; grid-row: 1 / span 3; align-self: center;
   width: auto; height: clamp(36px, 4.4vw, 64px);
 }
+/* date range as a pill in the role's timeline color; for the old per-role
+   arrow colors use var(--arrow-color, var(--role-color)) instead */
 .role__dates {
-  font-size: var(--fs-dates); font-weight: 700; line-height: 1; color: var(--c-ink);
-  display: flex; gap: .45em; align-items: baseline;
+  justify-self: start; display: inline-flex; gap: .4em; align-items: center;
+  padding: .45em .95em; border-radius: 999px; margin-bottom: 10px;
+  background: var(--role-color); color: var(--c-ink);
+  font-size: var(--fs-dates); font-weight: 700; line-height: 1;
 }
-.role__arrow { color: var(--arrow-color, var(--role-color)); }
+.role__arrow { color: inherit; }
 .role__company {
   font-size: var(--fs-company); font-weight: 700; line-height: 1.2; color: var(--c-ink);
   display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .45em;
