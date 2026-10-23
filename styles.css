@@ -201,10 +201,17 @@ main { padding: 0 var(--gutter); }
 .strip__item > picture, .strip__item > video { height: 100%; }
 .strip__media { height: 100%; width: auto; max-width: none; }
 
-/* a wide, short banner (Surfside stats): natural size, centered, not stretched to strip height */
-.strip__item--banner { height: var(--strip-h); display: flex; align-items: center; }
+/* a wide, short banner (Surfside stats), as on the live site: a full-height card in the
+   image's own background colour, so the image edges disappear; image at natural size */
+.strip__item--banner {
+  height: calc(var(--strip-h) + 2 * var(--strip-pad));
+  margin-block: calc(-1 * var(--strip-pad));
+  display: flex; align-items: center;
+  padding-inline: clamp(16px, 4.2vw, 60px);
+  background: #fafaf8;
+}
 .strip__item--banner > picture { height: auto; }
-.strip__item--banner .strip__media { width: min(924px, 80vw); height: auto; }
+.strip__item--banner .strip__media { width: min(924px, 72vw); height: auto; }
 
 /* two images in one column (Amplify) */
 .strip__item--stack { display: flex; flex-direction: column; gap: var(--strip-gap); }
