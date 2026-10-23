@@ -121,29 +121,63 @@
     else addEventListener('load', start, { once: true });
   }
 
-  // 5. click-to-load embeds: nothing third-party loads until the visitor asks for it
+  // 5. embeds. Most load by themselves once their strip is within about a screen of the
+  //    viewport (like the live site); the poster stays until the iframe has loaded.
+  //    Embeds marked data-embed-load="click" (the YouTube video) wait for a click.
+  const makeFrame = (embed, src) => {
+    const f = document.createElement('iframe');
+    f.src = src;
+    f.title = embed.dataset.embedTitle || 'embedded content';
+    f.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
+    f.allowFullscreen = true;
+    f.referrerPolicy = 'strict-origin-when-cross-origin';
+    return f;
+  };
+  const autoEmbeds = [];
   document.querySelectorAll('.embed[data-embed-src]').forEach(embed => {
     const link = embed.querySelector('.embed__open');
-    if (!link) return;
-    const title = embed.dataset.embedTitle || 'embedded content';
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'embed__open';
-    btn.innerHTML = '<span aria-hidden="true">▶</span> ';
-    btn.append(`Load ${title}`);
-    link.replaceWith(btn);
-    btn.addEventListener('click', () => {
-      const f = document.createElement('iframe');
-      f.src = embed.dataset.embedSrc;
-      f.title = title;
-      f.allow = 'autoplay; fullscreen; picture-in-picture; encrypted-media';
-      f.allowFullscreen = true;
-      f.referrerPolicy = 'strict-origin-when-cross-origin';
-      embed.append(f);
-      embed.classList.add('is-loaded');
-      f.focus();
-    }, { once: true });
+    if (embed.dataset.embedLoad === 'click') {
+      if (!link) return;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'embed__open';
+      btn.innerHTML = '<span aria-hidden="true">▶</span> ';
+      btn.append(link.textContent.replace('↗', '').trim());
+      link.replaceWith(btn);
+      btn.addEventListener('click', () => {
+        const f = makeFrame(embed, embed.dataset.embedSrc);
+        embed.append(f);
+        embed.classList.add('is-loaded');
+        f.focus();
+      }, { once: true });
+    } else {
+      link?.remove();
+      autoEmbeds.push(embed);
+    }
   });
+  const loadEmbed = embed => {
+    if (embed.dataset.embedLoaded) return;
+    embed.dataset.embedLoaded = 'true';
+    const f = makeFrame(embed, embed.dataset.embedSrc);
+    f.addEventListener('load', () => embed.classList.add('is-loaded'), { once: true });
+    embed.append(f);
+  };
+  if ('IntersectionObserver' in window) {
+    // watch the strips, not the embeds: an embed far right in a strip is clipped by
+    // the strip until scrolled sideways, so it would never count as visible
+    const strips = new Map();
+    autoEmbeds.forEach(e => { const s = e.closest('.strip') || e; strips.set(s, [...(strips.get(s) || []), e]); });
+    const eo = new IntersectionObserver(entries => {
+      for (const en of entries) {
+        if (!en.isIntersecting) continue;
+        strips.get(en.target).forEach(loadEmbed);
+        eo.unobserve(en.target);
+      }
+    }, { rootMargin: '100% 0px' });
+    strips.forEach((_, s) => eo.observe(s));
+  } else {
+    autoEmbeds.forEach(loadEmbed);
+  }
 
   // 6. entrance reveal, only for roles below the fold (no flash on load)
   if (!reduce && 'IntersectionObserver' in window) {
