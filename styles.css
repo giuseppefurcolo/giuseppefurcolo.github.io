@@ -155,8 +155,7 @@ main { padding: 0 var(--gutter); }
   grid-column: 2; grid-row: 1 / span 3; align-self: center;
   width: auto; height: clamp(36px, 4.4vw, 64px);
 }
-/* date range as a pill in the role's timeline color; for the old per-role
-   arrow colors use var(--arrow-color, var(--role-color)) instead */
+/* date range as a pill in the role's timeline color */
 .role__dates {
   justify-self: start; display: inline-flex; gap: .4em; align-items: center;
   padding: .45em .95em; border-radius: 999px; margin-bottom: 10px;
