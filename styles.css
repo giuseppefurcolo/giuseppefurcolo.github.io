@@ -10,6 +10,17 @@
   font-weight: 200 800;
   font-display: swap;
 }
+/* Arial sized to Bricolage's metrics (values from the live site). It draws the
+   glyphs the Latin subset lacks, like the date arrow, and avoids layout shift
+   while the web font loads. */
+@font-face {
+  font-family: "Bricolage Fallback";
+  src: local("Arial");
+  ascent-override: 87.18%;
+  descent-override: 25.31%;
+  line-gap-override: 0%;
+  size-adjust: 106.68%;
+}
 
 :root {
   --c-bg: #ffffff;
@@ -21,7 +32,7 @@
   --c-header-bg: rgb(245 245 246 / 0.85);
   --c-timeline-bg: rgb(252 252 252 / 0.9);
 
-  --ff: "Bricolage Grotesque", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --ff: "Bricolage Grotesque", "Bricolage Fallback", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
   --fs-title: clamp(1.25rem, 1rem + 1.1vw, 1.75rem);       /* 28px at 1440 */
   --fs-tagline: clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem);  /* 14px */
   --fs-year: clamp(0.6875rem, 0.55rem + 0.4vw, 1rem);      /* 16px */
@@ -52,6 +63,7 @@ body {
   margin: 0; background: var(--c-bg); color: var(--c-ink-2);
   font: 400 var(--fs-body)/1.2 var(--ff);
   -webkit-font-smoothing: antialiased;
+  font-variation-settings: "opsz" 14;   /* the live site serves the 14pt optical size at every text size */
 }
 img, video, picture { display: block; max-width: 100%; height: auto; }
 a { color: inherit; text-decoration: none; }
@@ -152,8 +164,14 @@ main { padding: 0 var(--gutter); }
   font-size: var(--fs-company); font-weight: 700; line-height: 1.2; color: var(--c-ink);
   display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .45em;
 }
+.role__company a { display: inline-flex; align-items: center; gap: .167em; }  /* 8px at 48px */
 .role__company a:hover { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; }
-.role__ext { font-size: .62em; font-weight: 600; margin-left: .12em; }
+/* the live site's hand-drawn arrow icon; the ↗ text stays for readers without CSS */
+.role__ext {
+  flex: none; width: .667em; height: .667em;  /* 32px at 48px */
+  background: url("/assets/icons/arrow-ne.svg") center / contain no-repeat;
+  color: transparent; overflow: hidden; user-select: none;
+}
 .role__exit { font-size: var(--fs-exit); font-weight: 500; line-height: 1.2; color: var(--c-muted-accent); }
 .role__title { font-size: var(--fs-role); font-weight: 700; line-height: 1; color: var(--c-ink); margin-top: 6px; }
 
