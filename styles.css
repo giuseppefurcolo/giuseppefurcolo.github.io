@@ -49,10 +49,49 @@
   --strip-h: clamp(200px, 42vw, 560px);   /* item height; keep in sync with sizes= in index.html */
   --strip-pad: clamp(16px, 2.8vw, 40px);
   --strip-gap: clamp(10px, 1.1vw, 16px);
+  --tl-pad-sm: clamp(4px, 1.7vw, 24px);
+  --tl-pad: clamp(12px, 1.7vw, 24px);
+  --role-pad-top: clamp(32px, 3.3vw, 48px);
+  --logo-h: clamp(36px, 4.4vw, 64px);
+  --strip-mt: clamp(28px, 2.8vw, 40px);
+  --banner-pad: clamp(16px, 4.2vw, 60px);
+  --banner-w: min(924px, 72vw);
+  --scene-gap: clamp(24px, 4vw, 64px);
+  --scene-pad: clamp(24px, 4.4vw, 64px);
+  --wordmark-w: clamp(60px, 8.5vw, 122px);
   --tick-h: 24px;
   --header-h: 160px;                      /* set by JS to the real header height */
 
   --ease: cubic-bezier(.2, .7, .2, 1);
+}
+
+/* Whole pixels only: fluid values otherwise land on sizes like 26.124px. Browsers
+   without round() keep the unrounded values above. */
+@supports (width: round(1.5px, 1px)) {
+  :root {
+    --fs-title: round(clamp(1.25rem, 1rem + 1.1vw, 1.75rem), 1px);
+    --fs-tagline: round(clamp(0.75rem, 0.7rem + 0.2vw, 0.875rem), 1px);
+    --fs-year: round(clamp(0.6875rem, 0.55rem + 0.4vw, 1rem), 1px);
+    --fs-dates: round(clamp(0.75rem, 0.6875rem + 0.2vw, 0.8125rem), 1px);
+    --fs-company: round(clamp(2.25rem, 1.6rem + 2.2vw, 3rem), 1px);
+    --fs-exit: round(clamp(1rem, 0.9rem + 0.4vw, 1.25rem), 1px);
+    --fs-role: round(clamp(1.125rem, 0.95rem + 0.7vw, 1.5rem), 1px);
+    --fs-body: round(clamp(1rem, 0.9rem + 0.45vw, 1.25rem), 1px);
+    --gutter: round(clamp(16px, 2.8vw, 40px), 1px);
+    --strip-h: round(clamp(200px, 42vw, 560px), 1px);
+    --strip-pad: round(clamp(16px, 2.8vw, 40px), 1px);
+    --strip-gap: round(clamp(10px, 1.1vw, 16px), 1px);
+    --tl-pad-sm: round(clamp(4px, 1.7vw, 24px), 1px);
+    --tl-pad: round(clamp(12px, 1.7vw, 24px), 1px);
+    --role-pad-top: round(clamp(32px, 3.3vw, 48px), 1px);
+    --logo-h: round(clamp(36px, 4.4vw, 64px), 1px);
+    --strip-mt: round(clamp(28px, 2.8vw, 40px), 1px);
+    --banner-pad: round(clamp(16px, 4.2vw, 60px), 1px);
+    --banner-w: round(min(924px, 72vw), 1px);
+    --scene-gap: round(clamp(24px, 4vw, 64px), 1px);
+    --scene-pad: round(clamp(24px, 4.4vw, 64px), 1px);
+    --wordmark-w: round(clamp(60px, 8.5vw, 122px), 1px);
+  }
 }
 
 /* 2. base -------------------------------------------------------------- */
@@ -102,12 +141,12 @@ ol, ul { padding: 0; list-style: none; }
 }
 .timeline__years {
   display: grid; grid-template-columns: repeat(16, minmax(0, 1fr));
-  padding: 12px clamp(4px, 1.7vw, 24px);
+  padding: 12px var(--tl-pad-sm);
 }
 .timeline__years li { display: flex; justify-content: center; }
 /* wider screens: labels spread edge to edge like the live site (ticks 44px to 1396px at 1440) */
 @media (min-width: 700px) {
-  .timeline__years { display: flex; justify-content: space-between; padding-inline: clamp(12px, 1.7vw, 24px); }
+  .timeline__years { display: flex; justify-content: space-between; padding-inline: var(--tl-pad); }
   .timeline__years li { flex: none; width: 2.5em; font-size: var(--fs-year); }
 }
 .timeline__years a {
@@ -146,14 +185,14 @@ ol, ul { padding: 0; list-style: none; }
 /* 4. role sections ----------------------------------------------------- */
 
 main { padding: 0 var(--gutter); }
-.role { padding: clamp(32px, 3.3vw, 48px) 0 40px; border-bottom: 1px solid var(--c-rule); }
+.role { padding: var(--role-pad-top) 0 40px; border-bottom: 1px solid var(--c-rule); }
 .role:last-child { border-bottom: 0; }
 
 .role__head { display: grid; grid-template-columns: 1fr auto; column-gap: 24px; align-items: start; }
 .role__head > :not(.role__logo) { grid-column: 1; }
 .role__logo {
   grid-column: 2; grid-row: 1 / span 3; align-self: center;
-  width: auto; height: clamp(36px, 4.4vw, 64px);
+  width: auto; height: var(--logo-h);
 }
 /* date range as a pill in the role's timeline color */
 .role__dates {
@@ -178,7 +217,7 @@ main { padding: 0 var(--gutter); }
 .role__exit { font-size: var(--fs-exit); font-weight: 500; line-height: 1.2; color: var(--c-muted-accent); }
 .role__title { font-size: var(--fs-role); font-weight: 700; line-height: 1; color: var(--c-ink); margin-top: 6px; }
 
-.strip-wrap { position: relative; margin-top: clamp(28px, 2.8vw, 40px); }
+.strip-wrap { position: relative; margin-top: var(--strip-mt); }
 .strip__hint {
   position: absolute; bottom: 100%; left: 16px; margin-bottom: 4px;
   font-size: var(--fs-small); line-height: 1.5; color: var(--c-ink-2);
@@ -207,11 +246,11 @@ main { padding: 0 var(--gutter); }
   height: calc(var(--strip-h) + 2 * var(--strip-pad));
   margin-block: calc(-1 * var(--strip-pad));
   display: flex; align-items: center;
-  padding-inline: clamp(16px, 4.2vw, 60px);
+  padding-inline: var(--banner-pad);
   background: #fafaf8;
 }
 .strip__item--banner > picture { height: auto; }
-.strip__item--banner .strip__media { width: min(924px, 72vw); height: auto; }
+.strip__item--banner .strip__media { width: var(--banner-w); height: auto; }
 
 /* two images in one column (Amplify) */
 .strip__item--stack { display: flex; flex-direction: column; gap: var(--strip-gap); }
@@ -244,10 +283,10 @@ main { padding: 0 var(--gutter); }
 .scene__shots img { height: 100%; width: auto; max-width: none; border-radius: 8px; box-shadow: 0 8px 24px rgb(0 0 0 / 0.35); }
 
 .scene--dark {
-  display: flex; align-items: center; gap: clamp(24px, 4vw, 64px);
-  background: #000; padding: 0 clamp(24px, 4.4vw, 64px);
+  display: flex; align-items: center; gap: var(--scene-gap);
+  background: #000; padding: 0 var(--scene-pad);
 }
-.scene__wordmark { flex: none; width: clamp(60px, 8.5vw, 122px); height: auto; }
+.scene__wordmark { flex: none; width: var(--wordmark-w); height: auto; }
 .scene--dark .embed { height: 85%; }
 
 .role-copy {
