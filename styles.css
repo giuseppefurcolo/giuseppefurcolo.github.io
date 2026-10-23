@@ -165,7 +165,7 @@ main { padding: 0 var(--gutter); }
 .strip {
   position: relative;
   background: var(--c-panel); border-radius: var(--radius-panel);
-  box-shadow: 0 0 0 1px rgb(32 26 52 / 0.04), 0 2px 12px rgb(32 26 52 / 0.06);
+  box-shadow: 0 4px 24px rgb(0 0 0 / 0.25);   /* measured on the live site */
   overflow-x: auto; overflow-y: hidden;
   scroll-snap-type: x proximity; scroll-padding-inline: var(--strip-pad);
   overscroll-behavior-x: contain; scrollbar-width: none;
